@@ -66,6 +66,17 @@ class _DataGenerator():
 par = ['gender', 'fio', 'age']
 table1 = Table()
 table1.table_from_parametrs(par)
-fake = table1.generator(par, 10)
-for i in fake:
-    print(i)
+
+t_start = datetime.now()
+fake = table1.generator(par, 100000)
+
+with open('test.txt', 'w', encoding='utf-8') as w:
+    for i in fake:
+        print(i)
+        w.write(i + '\n')
+print('Count of objects: ' + str(len(fake)))
+
+t_finish = datetime.now()
+itog = (t_finish - t_start).microseconds #microsec
+itog /= 1000000 #sec
+print(itog/60) #min
