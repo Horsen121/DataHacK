@@ -10,7 +10,7 @@ class Table():
         '''Create table from file'''
         tmp = []
         with open(path, 'a') as r:
-            tmp = r.readline().split()
+            tmp = r.readline().split() #TODO посмотреть, из каких файлов можно открыть таблицы БД и реализовать отдельные методы
         self.par = self.__extract(tmp)
 
     def table_from_parametrs(self,par):
@@ -29,7 +29,7 @@ class Table():
     def __extract(self, tmp):
         par = []
         for i in tmp:
-            pass
+            pass #TODO придумать, как извлекать параметры в нужном виде
         return par
 
 
@@ -62,6 +62,7 @@ class _DataGenerator():
         return res
 
 
+#testing
 par = ['gender', 'fio', 'age']
 table1 = Table()
 table1.table_from_parametrs(par)
