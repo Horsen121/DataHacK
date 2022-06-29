@@ -1,8 +1,39 @@
 from datetime import datetime
-import dataclasses
+
+class Table():
+    '''
+    Class for create tables, extract parametrs and create fake data
+    '''
+    par = []
+
+    def table_from_file(self,path:str):
+        '''Create table from file'''
+        tmp = []
+        with open(path, 'a') as r:
+            tmp = r.readline().split()
+        self.par = self.__extract(tmp)
+
+    def table_from_parametrs(self,par):
+        '''Create table from parametrs'''
+        self.par = self.__extract(par)
+    
+    def generator(self,par,count):
+        '''Generate fake data from parametrs'''
+        iter = count
+        if count > 5000 : iter = count // 5000 + 1
+        for i in range(0,iter):
+            tmp = _DataGenerator.generator(_DataGenerator,par,count)
+            return tmp # for test
+            # export to database
+    
+    def __extract(self, tmp):
+        par = []
+        for i in tmp:
+            pass
+        return par
 
 
-class Generator():
+class _DataGenerator():
     from mimesis import Person
     from mimesis.builtins import RussiaSpecProvider
     from mimesis.enums import Gender
@@ -11,7 +42,7 @@ class Generator():
     m = Gender.MALE
     f = Gender.FEMALE
 
-    def generator(self, dataclass, count):
+    def generator(self, dataclass, count): #TODO доработать для большего покрытия возможных случаев
         res = []
         gender = self.m
         for i in range(0,count):
@@ -30,8 +61,10 @@ class Generator():
             res.append(tmp)
         return res
 
+
 par = ['gender', 'fio', 'age']
-gen = Generator()
-fake = gen.generator(par, 10)
+table1 = Table()
+table1.table_from_parametrs(par)
+fake = table1.generator(par, 10)
 for i in fake:
     print(i)
